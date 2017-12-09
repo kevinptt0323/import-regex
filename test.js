@@ -5,10 +5,13 @@ test('match CSS @imports', t => {
 	const fixtures = [
 		'@import "foo/bar.css";',
 		'@import "foo/bar.css" (min-width: 25em);',
+		'@import "foo/bar.css" screen, projection;',
 		'@import url(foo/bar.css);',
 		'@import url(foo/bar.css) (min-width: 25em);',
 		'@import url("foo/bar.css");',
 		'@import url("foo/bar.css") (min-width: 25em);',
+		'@import url("foo/bar.css") print;',
+		'@import url("foo/bar.css") projection, tv;',
 		'@import url(\'foo/bar.css\');',
 		'@import url(\'foo/bar.css\') (min-width: 25em);',
 		'@import url(foo/bar.css) only screen and (min-width: 25em) and (orientation: landscape);',
@@ -22,9 +25,11 @@ test('match CSS @imports', t => {
 
 test('do not match CSS @imports', t => {
 	const fixtures = [
+		'@import "foo/bar.css" "foo/bar.css";',
 		'@import "foo/bar.css"',
 		'@import url (foo/bar.css);',
 		'@import url("foo/bar.css);',
+		'@import url("foo/bar.css") projection,, tv;',
 		'@import url(foo/bar.css) ** (min-width: 25em) ;'
 	];
 
